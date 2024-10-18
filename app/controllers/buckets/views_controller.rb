@@ -24,6 +24,6 @@ class Buckets::ViewsController < ApplicationController
     end
 
     def filter_params
-      helpers.bubble_filter_params.to_h.compact_blank
+      helpers.bubble_filter_params.to_h
     end
 end
