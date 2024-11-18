@@ -115,10 +115,6 @@
       }
     }
 
-    .windshield &:has(.bubble__tag--new) {
-      display: none;
-    }
-
     @media (hover: hover) {
       .windshield .bubble:hover & {
         transform: translate(-1rem, -1rem);
@@ -172,26 +168,6 @@
     }
   }
 
-  &.bubble__assignee--new {
-    .windshield & {
-      display: none;
-    }
-  }
-
-  &.bubble__attachment {
-    aspect-ratio: 1;
-    font-size: 4cqi;
-    inset: -5cqb 26cqi auto auto;
-
-    .btn {
-      font-size: 4cqi;
-    }
-
-    .windshield & {
-      display: none;
-    }
-  }
-
   &.bubble__date {
     aspect-ratio: 1;
     cursor: pointer;
@@ -205,14 +181,6 @@
       > * {
         grid-area: 1/1;
       }
-    }
-  }
-
-  &.bubble__date--new {
-    padding: 0.7em;
-
-    .windshield & {
-      display: none;
     }
   }
 
@@ -302,10 +270,6 @@
   inset: 0;
   position: absolute;
   z-index: -1;
-}
-
-.bubble__notes {
-  position: relative;
 }
 
 .bubble__perma {
@@ -408,18 +372,6 @@
     flex-grow: 1;
     margin-block-end: 0.25em;
   }
-}
-
-.bubble__popped {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  background-color: red;
-  color: white;
-  padding: 1rem 2rem;
-  font-size: 200%;
-  border-radius: 4px;
-  transform: rotate(-35deg) translate(-25%, -50%);
 }
 
 .bubble__shape {
