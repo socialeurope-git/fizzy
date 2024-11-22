@@ -3,7 +3,7 @@
     <%= avatar_tag comment.creator, loading: :lazy %>
   </figure>
 
-  <div class="comment__content flex flex-column full-width">
+  <div class="comment__content flex-inline flex-column full-width border border-radius">
     <div class="comment__author flex align-center gap-half">
       <strong><%= comment.creator.name %></strong>
       <%= link_to bucket_bubble_path(comment.bubble.bucket, comment.bubble, anchor: "comment_#{comment.id}"), class: "txt-undecorated" do %>

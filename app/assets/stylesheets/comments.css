@@ -1,13 +1,23 @@
 .comments {
   --avatar-size: 2.33em;
-  --comment-padding-block: 1lh;
+  --comment-padding-block: 0.65lh;
   --comment-padding-inline: 2ch;
 
-  max-inline-size: 80ch;
+  max-inline-size: 120ch;
   row-gap: var(--comment-padding-block);
 
   > :first-child {
     margin-block-start: var(--comment-padding-block);
+  }
+}
+
+.comment {
+  max-inline-size: 66ch;
+  margin-block: var(--comment-padding-block);
+  margin-inline: 0 auto;
+
+  textarea {
+    padding: var(--comment-padding-block) var(--comment-padding-inline);
   }
 }
 
@@ -35,11 +45,11 @@
 }
 
 .comment__content {
-  margin-inline: 0 var(--avatar-size);
+  margin-inline: auto var(--avatar-size);
   padding: var(--comment-padding-block) var(--comment-padding-inline);
 
   .comment--mine & {
-    margin-inline: var(--avatar-size) 0;
+    margin-inline: var(--avatar-size) auto;
   }
 
   .comment:has(+ .event-summary) & {
@@ -49,6 +59,7 @@
 
 .comment--mine {
   flex-direction: row-reverse;
+  margin-inline: auto 0;
 
   .comment__author {
     flex-direction: row-reverse;
@@ -72,8 +83,9 @@
 }
 
 .event-summary {
+  color: var(--bubble-color);
   font-weight: 600;
   gap: 0.5ch;
-  margin-block: calc(var(--comment-padding-block) * -1);
+  /* margin-block: calc(var(--comment-padding-block) * -1); */
   padding: calc(var(--comment-padding-block) * 0.5) var(--comment-padding-inline);
 }

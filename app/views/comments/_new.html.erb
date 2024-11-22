@@ -7,7 +7,7 @@
     </div>
     <div class="comment__body txt-align-start margin-block-start-half">
       <%= form_with model: Comment.new, url: bucket_bubble_comments_path(bubble.bucket, bubble), class: "flex flex-column gap full-width", data: { controller: "form", action: "keydown.meta+enter->form#submit" } do |form| %>
-        <%= form.text_area :body, class: "input", required: true, rows: 4, placeholder: new_comment_placeholder(bubble) %>
+        <%= form.text_area :body, class: "input border border-radius", required: true, rows: 4, placeholder: new_comment_placeholder(bubble) %>
         <%= form.button class: "btn btn--reversed center" do %>
           <%= image_tag "check.svg", aria: { hidden: "true" }, size: 24 %>
           <span class="for-screen-reader">Save</span>
