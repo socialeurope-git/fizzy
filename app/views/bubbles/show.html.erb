@@ -92,13 +92,19 @@
   <div class="bubble__perma flex justify-center center">
     <%= render "bubbles/bubble", bubble: @bubble %>
   </div>
-  
+
   <% unless @bubble.drafted? || @bubble.creating? %>
     <%= render "bubbles/pop_toggle", bubble: @bubble %>
   <% end %>
 
   <div style="margin-block-start: calc(var(--block-space) * -1);">
-    <%= render "bubbles/messages", bubble: @bubble %>
+    <% if @bubble.published? %>
+      <%= render "bubbles/messages", bubble: @bubble %>
+    <% else %>
+      <form>
+      <%= tag.house_md @bubble.draft_comment, name: "bubble[draft_comment]", form: "bubble_form", placeholder: new_comment_placeholder(@bubble) %>
+      </form>
+    <% end %>
   </div>
 
   <% if @bubble.creating? %>

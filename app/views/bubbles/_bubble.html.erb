@@ -8,13 +8,13 @@
 
     <div>
       <h1 class="bubble__title">
-        <% if bubble.creating? %>
-          <%= form_with model: bubble, url: bucket_bubble_path(bubble.bucket, bubble), data: { controller: "auto-save" } do |form| %>
-            <%= form.text_area :title, placeholder: "Name it…", class: "input input--textara txt-align-center full-width borderless bubble__title-rendered", autofocus: bubble.title.blank?, data: { action: "auto-save#change blur->auto-save#submit keydown.enter->auto-save#submit:prevent keydown.ctrl+enter->auto-save#submit:prevent" } %>
-          <% end %>
-        <% else %>
+        <% if bubble.published? %>
           <%= turbo_frame_tag bubble, :edit do %>
             <%= link_to bubble_title(bubble), edit_bucket_bubble_path(bubble.bucket, bubble), class: "txt-undecorated bubble__title-rendered" %>
+          <% end %>
+        <% else %>
+          <%= form_with model: bubble, url: bucket_bubble_path(bubble.bucket, bubble), id: "bubble_form", data: { controller: "auto-save" } do |form| %>
+            <%= form.text_area :title, placeholder: "Name it…", class: "input input--textara txt-align-center full-width borderless bubble__title-rendered", autofocus: bubble.title.blank?, data: { action: "auto-save#change blur->auto-save#submit keydown.enter->auto-save#submit:prevent keydown.ctrl+enter->auto-save#submit:prevent" } %>
           <% end %>
         <% end %>
 
