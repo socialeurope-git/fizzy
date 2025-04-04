@@ -10,7 +10,7 @@
         <span class="for-screen-reader">Assign</span>
       </button>
 
-      <%= turbo_frame_tag bubble, :assignment, src: new_bucket_bubble_assignment_toggle_path(bubble.bucket, bubble) unless previewing_card? %>
+      <%= yield %>
     </div>
   </div>
 <% end %>

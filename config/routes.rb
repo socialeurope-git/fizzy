@@ -52,7 +52,6 @@ Rails.application.routes.draw do
         resource :engagement
         resource :publish
         resource :recover
-        resource :stage_picker
         resources :stagings
         resource :watch
         resource :pin, only: [ :show, :create, :destroy ]

@@ -1,0 +1,14 @@
+<%= turbo_frame_tag bubble, :tags do %>
+  <div class="card__tags flex align-center flex-item-grow min-width">
+    <div class="overflow-ellipsis">
+      <% if bubble.tags.any? || bubble.creating? %>
+        <span># </span>
+        <% bubble.tags.each_with_index do |tag, index| %>
+          <span class="card__tag btn btn--plain min-width txt-uppercase fill-transparent overflow-ellipsis">
+            <%= tag.title %>
+          </span>
+        <% end %>
+    <% end %>
+    </div>
+  </div>
+<% end %>

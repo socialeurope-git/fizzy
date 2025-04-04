@@ -17,8 +17,6 @@
         <%= icon_tag "tag" %>
         <span class="for-screen-reader">Add a tag</span>
       </button>
-
-      <%= turbo_frame_tag bubble, :tagging, src: new_bucket_bubble_tagging_toggle_path(bubble.bucket, bubble) unless previewing_card? %>
     </div>
   </div>
 <% end %>

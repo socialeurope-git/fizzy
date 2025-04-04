@@ -22,9 +22,7 @@ class Assignments::TogglesController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream do
-        render turbo_stream: turbo_stream.replace([ @bubble, :assignees ],
-                                                  partial: "bubbles/assignees",
-                                                  locals: { bubble: @bubble })
+        render turbo_stream: turbo_stream.replace([ @bubble, :assignees ], partial: "bubbles/cards/perma/assignees", locals: { bubble: @bubble })
       end
     end
   end

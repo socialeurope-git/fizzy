@@ -4,7 +4,7 @@
   </h2>
 
   <% if bubbles.any? %>
-    <%= render partial: "bubbles/card_mini", collection: bubbles, as: :bubble, cached: true %>
+    <%= render partial: "bubbles/cards/mini", collection: bubbles, as: :bubble, cached: true %>
   <% else %>
     <p class="txt-medium translucent">Nothing here</p>
   <% end %>
