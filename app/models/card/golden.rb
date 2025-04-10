@@ -6,7 +6,7 @@ module Card::Golden
 
     has_one :goldness, dependent: :destroy, class_name: "Card::Goldness"
 
-    scope :golden_first, -> do
+    scope :with_golden_first, -> do
       left_outer_joins(:goldness).tap do |relation|
         relation.order_values.unshift("card_goldnesses.id IS NULL")
       end
