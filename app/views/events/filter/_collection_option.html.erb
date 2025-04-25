@@ -1,4 +1,4 @@
-<div class="popup__group flex align-center">
+<li class="popup__group flex align-center" data-value="<%= collection.name.downcase %>">
   <div class="btn txt-xx-small">
     <%= form.check_box "collection_ids[]", {
           checked: filter.collections.include?(collection),
@@ -17,4 +17,4 @@
   <% end %>
 
   <span class="translucent flex-item-no-shrink"> ›</span>
-</div>
+</li>

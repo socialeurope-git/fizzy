@@ -5,14 +5,24 @@
   <div class="btn btn--placeholder flex-item-justify-start"></div>
 
   <header class="flex flex-inline flex-column center flex-shrink">
-    <div class="card-filter--collection flex-inline center position-relative" data-controller="dialog" data-action="click@document->dialog#closeOnClickOutside">
-      <button class="txt-align-center input input--select borderless center txt-medium" data-action="click->dialog#open:stop">
-        <h1 class="txt-large overflow-ellipsis margin-none">
-          <%= filter_title filter %>
+    <div class="card-filter--collection flex-inline align-center center position-relative" data-controller="dialog" data-action="click@document->dialog#closeOnClickOutside">
+      <%= tag.button class: "txt-align-center input input--select borderless txt-medium",
+          data: {
+            action: "click->dialog#open:stop keydown.meta+j@document->hotkey#click",
+            controller: "hotkey" } do %>
+        <h1 class="txt-large overflow-ellipsis margin-none flex align-center gap-half">
+          <span><%= filter_title filter %></span>
+          <kbd class="kbd">⌘j</kbd>
         </h1>
-      </button>
+      <% end %>
 
-      <dialog class="popup popup--animated panel flex-column align-start gap-half fill-white shadow" data-dialog-target="dialog" data-action="keydown.esc->dialog#close:stop turbo:before-cache@document->dialog#close">
+      <%= tag.dialog class:"popup popup--animated panel flex-column align-start gap-half fill-white shadow",
+          data: { 
+            action:"keydown.esc->dialog#close:stop turbo:before-cache@document->dialog#close",
+            controller: "filter", 
+            dialog_target: "dialog",
+            filter_active_class: "filter--active", 
+            filter_selected_class: "selected" } do %>
         <div class="flex align-center full-width gap-half">
           <span class="btn borderless" style="pointer-events: none; --icon-size: 1.3em; --btn-padding: 0 0.4em 0 0.6em;">
             <%= icon_tag "filter" %>
@@ -23,9 +33,16 @@
             <span class="for-screen-reader">Close</span>
           </button>
         </div>
-
-        <%= render "cards/index/collections_filter", filter: filter %>
-      </dialog>
+        <% if Current.user.collections.count > 15 %>
+          <input placeholder="Find a collection…" class="input input--transparent txt-small" type="search" autocorrect="off" autocomplete="off" data-1p-ignore="true" data-action="input->filter#filter" autofocus=>
+        <% end %>
+        <menu data-filter-target="list" contents>
+          <%= render "cards/index/collections_filter", filter: filter %>
+        </menu>
+        <p class="txt-small txt-nowrap txt-align-center margin-block-half full-width">
+          Press <kbd class="kbd">⌘j</kbd> anytime to open this, <kbd class="kbd">esc</kbd> to close.
+        </p>
+      <% end %>
     </div>
   </header>
 

@@ -1,20 +1,37 @@
 <div class="max-width margin-block-end-half"
 		data-controller="dialog" data-action="keydown.esc->dialog#close click@document->dialog#closeOnClickOutside">
-	<button class="events__filter-btn input input--select flex-inline center min-width max-width txt-small" data-action="click->dialog#open:stop">
+	<%= tag.button class:"events__filter-btn input input--select flex-inline center min-width max-width txt-small",
+			data: {
+				action: "click->dialog#open:stop keydown.meta+j@document->hotkey#click",
+				controller: "hotkey" } do %>
 		<span class="overflow-ellipsis center">
 			<%= filter_selected_collections_label(filter) %>
 		</span>
-	</button>
+		<% end %>
 
-	<dialog class="events__popup popup popup--animated panel flex-column align-start gap-half fill-white shadow"
-				style="z-index: 5;" data-dialog-target="dialog" data-action="turbo:before-cache@document->dialog#close">
+	<%= tag.dialog class: "events__popup popup popup--animated panel flex-column align-start gap-half fill-white shadow", 
+			style: "z-index: 5;", 
+			data: { 
+				action: "turbo:before-cache@document->dialog#close",
+				controller: "filter", 
+				dialog_target: "dialog",
+				filter_active_class: "filter--active", 
+				filter_selected_class: "selected" } do %>
 		<%= render "events/filter/header" %>
 		<%= render "events/filter/new_collection_option" %>
-
+		<% if Current.user.collections.count > 15 %>
+			<input placeholder="Find a collection…" class="input input--transparent txt-small" type="search" autocorrect="off" autocomplete="off" data-1p-ignore="true" data-action="input->filter#filter" autofocus>
+		<% end %>
 		<%= form_with url: events_path, method: :get, class: "flex flex-column max-width popup__list full-width",
 					data: { controller: "form" } do |form| %>
 			<%= render "events/filter/all_collections_option", form: form, filter: filter %>
-			<%= render partial: "events/filter/collection_option", collection: Current.user.collections, as: :collection, locals: { form: form, filter: filter } %>
+			<menu data-filter-target="list" contents>
+				<%= render partial: "events/filter/collection_option", collection: Current.user.collections, as: :collection, locals: { form: form, filter: filter } %>
+			</menu>
 		<% end %>
-	</dialog>
+
+		<p class="txt-small txt-nowrap txt-align-center margin-block-half full-width">
+			Press <kbd class="kbd">⌘j</kbd> anytime to open this, <kbd class="kbd">esc</kbd> to close.
+		</p>
+	<% end %>
 </div>
