@@ -269,20 +269,25 @@
   }
 
   .card__bubble {
-    --size: 4cqi;
+    --size: 5cqi;
 
-    border: 1.5px solid currentColor;
+    background:
+      /* Iridescent color swirl */
+      radial-gradient(circle at 60% 40%, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.0) 40%),
+      radial-gradient(circle at 70% 70%, rgba(255,182,193,0.5) 0%, rgba(173,216,230,0.5) 40%, rgba(144,238,144,0.2) 60%, rgba(255,255,224,0.2) 80%, rgba(255,255,255,0.0) 100%),
+      radial-gradient(circle at 30% 70%, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.0) 50%),
+      radial-gradient(circle at 50% 50%, rgba(176,224,230,0.4) 0%, rgba(255,182,193,0.2) 60%, rgba(255,255,255,0.0) 100%);
+    box-shadow: 0 0 4px 2px rgba(100,150,255,0.1) inset;
     block-size: var(--size);
-    border-radius: 50%;
-    color: var(--color-negative);
+    border-radius: 42% 72% 68% 43% / 53% 73% 45% 67%;
+    padding: 0.5cqi;
+    /* color: var(--color-negative); */
     container-type: inline-size;
     font-size: 1.75rem;
     font-weight: bold;
-    inset: 50% auto auto -0.5ch;
     inline-size: var(--size);
-    padding: calc(var(--size) * 0.05);
+    inset: 50% auto auto -0.5ch;
     position: absolute;
-    transform: rotate(-10deg);
     translate: -100% -50%;
 
     span {
