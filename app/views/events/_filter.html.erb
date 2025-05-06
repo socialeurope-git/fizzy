@@ -26,9 +26,12 @@
 		<%= form_with url: events_path, method: :get, class: "flex flex-column max-width popup__list full-width",
 					data: { controller: "form" } do |form| %>
 			<%= render "events/filter/all_collections_option", form: form, filter: filter %>
-			<menu data-filter-target="list" contents>
-				<%= render partial: "events/filter/collection_option", collection: Current.user.collections.alphabetically, as: :collection, locals: { form: form, filter: filter } %>
-			</menu>
+
+			<% if Current.user.collections.many? %>
+				<menu data-filter-target="list" contents>
+					<%= render partial: "events/filter/collection_option", collection: Current.user.collections.alphabetically, as: :collection, locals: { form: form, filter: filter } %>
+				</menu>
+			<% end %>
 		<% end %>
 
 		<p class="txt-small txt-nowrap txt-align-center margin-block-half full-width">

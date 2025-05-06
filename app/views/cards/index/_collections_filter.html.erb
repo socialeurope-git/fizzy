@@ -4,40 +4,49 @@
     <%= filter_hidden_field_tag key, value %>
   <% end %>
 
-  <%= link_to cards_path(filter.as_params.except(:collection_ids)), class: "popup__group flex align-center", style: "--hover-size: 0" do %>
-    <div class="btn txt-xx-small flex-item-no-shrink">
-      <input type="checkbox" <%= "checked" if filter.collection_ids.empty? %>>
-
-      <span class="for-screen-reader">
-        See everything in all collections
-      </span>
-      <%= icon_tag "check", size: 18, class: "checked" %>
-    </div>
-    <%= tag.div class: "btn popup__item min-width flex-item-grow" do %>
-      <span class="overflow-ellipsis">All collections</span>
-      <span class="txt-ink translucent flex-item-no-shrink flex-item-justify-end"><span class="txt-x-small txt-uppercase">GO TO</span> ›</span>
+  <% if Current.user.collections.one? %>
+    <%= link_to cards_path(filter.as_params.except(:collection_ids)), class: "popup__group flex align-center", style: "--hover-size: 0" do %>
+      <%= tag.div class: "btn popup__item min-width flex-item-grow" do %>
+        <span class="overflow-ellipsis"><%= Current.user.collections.first.name %></span>
+        <span class="txt-ink translucent flex-item-no-shrink flex-item-justify-end"><span class="txt-x-small txt-uppercase">GO TO</span> ›</span>
+      <% end %>
     <% end %>
-  <% end %>
-
-  <% Current.user.collections.order(:name).each do |collection| %>
-    <li class="popup__group flex align-center" data-value="<%= collection.name.downcase %>">
+  <% elsif Current.user.collections.many? %>
+    <%= link_to cards_path(filter.as_params.except(:collection_ids)), class: "popup__group flex align-center", style: "--hover-size: 0" do %>
       <div class="btn txt-xx-small flex-item-no-shrink">
-        <%= form.check_box "collection_ids[]", {
-              checked: filter.collections.include?(collection),
-              data: { action: "change->form#submit" },
-              include_hidden: false,
-        }, collection.id %>
+        <input type="checkbox" <%= "checked" if filter.collection_ids.empty? %>>
 
         <span class="for-screen-reader">
-          Toggle filter for <%= collection.name %>
+          See everything in all collections
         </span>
         <%= icon_tag "check", size: 18, class: "checked" %>
       </div>
-
-      <%= link_to cards_path(collection_ids: [ collection ]), class: "btn popup__item min-width flex-item-grow" do %>
-        <span class="overflow-ellipsis"><%= collection.name %></span>
-        <span class="translucent flex-item-no-shrink flex-item-justify-end"> ›</span>
+      <%= tag.div class: "btn popup__item min-width flex-item-grow" do %>
+        <span class="overflow-ellipsis">All collections</span>
+        <span class="txt-ink translucent flex-item-no-shrink flex-item-justify-end"><span class="txt-x-small txt-uppercase">GO TO</span> ›</span>
       <% end %>
-    </li>
+    <% end %>
+
+    <% Current.user.collections.order(:name).each do |collection| %>
+      <li class="popup__group flex align-center" data-value="<%= collection.name.downcase %>">
+        <div class="btn txt-xx-small flex-item-no-shrink">
+          <%= form.check_box "collection_ids[]", {
+                checked: filter.collections.include?(collection),
+                data: { action: "change->form#submit" },
+                include_hidden: false,
+          }, collection.id %>
+
+          <span class="for-screen-reader">
+            Toggle filter for <%= collection.name %>
+          </span>
+          <%= icon_tag "check", size: 18, class: "checked" %>
+        </div>
+
+        <%= link_to cards_path(collection_ids: [ collection ]), class: "btn popup__item min-width flex-item-grow" do %>
+          <span class="overflow-ellipsis"><%= collection.name %></span>
+          <span class="translucent flex-item-no-shrink flex-item-justify-end"> ›</span>
+        <% end %>
+      </li>
+    <% end %>
   <% end %>
 <% end %>

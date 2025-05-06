@@ -32,10 +32,10 @@ module NotificationsHelper
 
   def notification_mark_read_button(notification)
     button_to read_notification_path(notification),
-        class: "notification__unread_indicator btn borderless",
+        class: "notification__unread_indicator btn btn--circle borderless",
         title: "Mark as read",
         data: { turbo_frame: "_top" } do
-      concat(image_tag("remove-med.svg", class: "unread_icon", size: 12, aria: { hidden: true }))
+      concat(icon_tag("remove-med"))
       concat(tag.span("Mark as read", class: "for-screen-reader"))
     end
   end

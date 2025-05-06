@@ -1,7 +1,7 @@
 module FiltersHelper
   def filter_title(filter)
     if filter.collections.none?
-      "All collections"
+      Current.user.collections.one? ? Current.user.collections.first.name : "All collections"
     elsif filter.collections.one?
       filter.collections.first.name
     else

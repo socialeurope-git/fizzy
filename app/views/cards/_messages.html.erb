@@ -6,11 +6,11 @@
     <strong class="txt-uppercase">Subscribers</strong>
 
     <p class="margin-none-block-start margin-block-end-half">
-      <%= pluralize(@card.watchers.count, "person") %> will be notified when someone comments on this.
+      <%= pluralize(@card.watchers.without(User.system).count, "person") %> will be notified when someone comments on this.
     </p>
 
     <div class="flex align-center flex-wrap gap-half max-width txt-normal">
-      <% prepend_current_user_to(@card.watchers.alphabetically).each do |watcher| %>
+      <% prepend_current_user_to(@card.watchers.without(User.system).alphabetically).each do |watcher| %>
         <%= avatar_tag watcher %>
       <% end %>
     </div>

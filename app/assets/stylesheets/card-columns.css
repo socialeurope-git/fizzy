@@ -10,15 +10,35 @@
   }
 
   .card-columns {
-    border-block-start: 1px solid var(--color-ink-lighter);
     display: grid;
     grid-template-columns: repeat(2, 50%);
     margin: auto;
     max-inline-size: 1080px;
+    position: relative;
+
+    &:before {
+      background: linear-gradient(to right,var(--color-canvas), var(--color-ink-lighter) 3%, var(--color-ink-lighter) 97%, var(--color-canvas));
+      block-size: 1px;
+      content: "";
+      display: block;
+      inline-size: calc(100% + 1.2em);
+      inset: 0 -0.6em 100% -0.6em;
+      position: absolute;
+    }
 
     .cards:first-child {
-      border-inline-end: var(--border);
       padding-inline-end: var(--cards-gap);
+      position: relative;
+
+      &:after {
+        background: linear-gradient(var(--color-canvas), var(--color-ink-lighter) 1%, var(--color-ink-lighter) 99%, var(--color-canvas));
+        block-size: calc(100% + 1.2em);
+        content: "";
+        display: block;
+        inline-size: 1px;
+        inset: -0.6em 0 -0.6em 100%;
+        position: absolute;
+      }
     }
 
     .cards:last-child {
@@ -37,7 +57,7 @@
     flex-direction: column;
     gap: var(--cards-gap);
     justify-content: start;
-    padding-block: var(--cards-gap);
+    padding-block: calc(var(--cards-gap) * 0.75);
 
     .card {
       --block-space: 1em;
@@ -121,12 +141,22 @@
   /* -------------------------------------------------------------------------- */
 
   .cards--closed {
-    border-block-start: 1px solid var(--color-ink-lighter);
     justify-content: center;
     flex-direction: row;
     flex-wrap: wrap;
     inline-size: 100%;
     margin: 0 auto;
+    position: relative;
+
+    &:before {
+      background: linear-gradient(to right,var(--color-canvas), var(--color-ink-lighter) 3%, var(--color-ink-lighter) 97%, var(--color-canvas));
+      block-size: 1px;
+      content: "";
+      display: block;
+      inline-size: calc(100% + 1.2em);
+      inset: 0 -0.6em 100% -0.6em;
+      position: absolute;
+    }
 
     .card {
       inline-size: calc((100% - var(--cards-gap) * 2) / 3);
