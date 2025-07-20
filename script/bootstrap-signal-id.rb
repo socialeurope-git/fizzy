@@ -15,7 +15,7 @@ class BootstrapSignalId
         puts "\n# tenant: #{tenant}"
 
         next unless check_account_preconditions
-        create_signal_id_account if Account.first.queenbee_id.nil?
+        create_signal_id_account if Account.sole.queenbee_id.nil?
 
         create_signal_id_users
       end
@@ -42,7 +42,7 @@ class BootstrapSignalId
       signal_id_account = SignalId::Account.find_by!(queenbee_id: queenbee_account.id)
       signal_id_account.update_column :subdomain, ApplicationRecord.current_tenant
 
-      account = Account.first
+      account = Account.sole
       account.queenbee_id = queenbee_account.id
       account.name = ApplicationRecord.current_tenant
       account.save!
@@ -50,7 +50,7 @@ class BootstrapSignalId
   end
 
   def create_signal_id_users
-    signal_account = Account.first.signal_account
+    signal_account = Account.sole.signal_account
 
     User.find_each do |user|
       if !user.system? && user.signal_user_id.nil?

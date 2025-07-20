@@ -4,7 +4,7 @@ COLLECTIONS_COUNT = 100
 CARDS_PER_COLLECTION = 50
 
 ApplicationRecord.current_tenant = "development-tenant"
-account = Account.first
+account = Account.sole
 user = account.users.first
 Current.session = user.sessions.last
 workflow = account.workflows.first

@@ -7,7 +7,7 @@ tenant_names = []
 ApplicationRecord.with_each_tenant do |tenant|
   next if tenant == "#{Rails.env}-tenant"
 
-  account = Account.first
+  account = Account.sole
   queenbee_id = account.queenbee_id
   tenant_names << { from: tenant, to: queenbee_id }
 

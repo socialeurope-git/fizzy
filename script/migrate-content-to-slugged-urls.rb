@@ -25,7 +25,7 @@ def fix_attachments(rich_text)
 end
 
 ApplicationRecord.with_each_tenant do |tenant|
-  account_id = Account.first.queenbee_id
+  account_id = Account.sole.queenbee_id
 
   unless account_id
     puts "Skipping URL fixup for tenant: #{tenant}"
@@ -37,7 +37,7 @@ ApplicationRecord.with_each_tenant do |tenant|
   domain = domains[Rails.env] || domains["production"]
   regex = %r{://\w+\.#{domain}/}
 
-  pp [ Account.first.name, account_id, domain, regex ]
+  pp [ Account.sole.name, account_id, domain, regex ]
   puts
 
   Card.find_each do |card|

@@ -3,7 +3,7 @@
 require_relative "../config/environment"
 
 ApplicationRecord.with_each_tenant do |tenant|
-  account = Account.first
+  account = Account.sole
   signal_account = account.signal_account
 
   signal_users = SignalId::User.where(account_id: signal_account.id)
