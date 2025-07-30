@@ -4,23 +4,35 @@ module EventsHelper
     when "added"
       events = day_timeline.events.where(action: [ "card_published", "card_reopened" ])
       {
-        title: events.count > 0 ? "Added (#{events.count})" : "Added",
+        title: event_column_title("Added", events.count, day_timeline.day),
         index: 1,
         events: events
       }
     when "closed"
       events = day_timeline.events.where(action: "card_closed")
       {
-        title: events.count > 0 ? "Closed (#{events.count})" : "Closed",
+        title: event_column_title("Closed", events.count, day_timeline.day),
         index: 3,
         events: events
       }
     else
+      events = day_timeline.events.where.not(action: [ "card_published", "card_closed", "card_reopened" ])
       {
-        title: "Updated",
+        title: event_column_title("Updated", events.count, day_timeline.day),
         index: 2,
-        events: day_timeline.events.where.not(action: [ "card_published", "card_closed", "card_reopened" ])
+        events: events
       }
+    end
+  end
+
+  private
+
+  def event_column_title(base_title, count, day)
+    date_tag = local_datetime_tag day, style: :agoorweekday
+    if count > 0
+      "#{base_title} #{date_tag} <span class='font-weight-normal'>(#{count})</span>".html_safe
+    else
+      "#{base_title} #{date_tag}".html_safe
     end
   end
 
