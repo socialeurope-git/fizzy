@@ -1,7 +1,5 @@
 <%= turbo_frame_tag card, :assignees do %>
-  <div class="flex">
-    <% card.assignees.each do |assignee| %>
-      <%= avatar_tag assignee %>
-    <% end %>
-  </div>
+  <% card.assignees.each do |assignee| %>
+    <%= avatar_tag assignee %>
+  <% end %>
 <% end %>

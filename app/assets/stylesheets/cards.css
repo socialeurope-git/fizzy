@@ -245,21 +245,10 @@
   }
 
   .card__meta {
-     --border: 1px solid var(--card-color);
+     --meta-border: 1px solid var(--card-color);
 
-    align-items: center;
-    display: flex;
     max-inline-size: 100%;
     min-inline-size: 0;
-  }
-
-  .card__meta-grid {
-    display: grid;
-    grid-template-columns: auto auto;
-    margin-inline-start: var(--inline-space);
-  }
-
-  .card__meta-item {
     text-transform: uppercase;
 
     strong,
@@ -267,26 +256,76 @@
       font-weight: 900;
     }
 
-    &:nth-child(odd) {
-      border-inline-end: var(--border);
-      padding-inline-end: var(--inline-space);
-    }
-
-    &:nth-child(even) {
-      padding-inline-start: var(--inline-space);
-    }
-
-    /* First two */
-    &:nth-child(-n+2) {
-      border-block-end: var(--border);
-      padding-block-end: 0.25ch;
-    }
-
-    /* Last two */
-    &:nth-child(n+3) {
-      padding-block-start: 0.25ch;
+    @media (min-width: 640px) {
+      align-items: center;
+      display: flex;
     }
   }
+
+  .card__meta-grid {
+    column-gap: var(--inline-space);
+    display: grid;
+  }
+
+  .card__meta-grid--author {
+    grid-template-areas:
+      "avatar top"
+      "avatar bottom";
+    grid-template-columns: auto 1fr;
+
+    .card__meta-author { grid-area: avatar; }
+    .card__meta-text--added { grid-area: top; }
+    .card__meta-text--author { grid-area: bottom; }
+
+    @media (min-width: 640px) {
+      border-inline-end: var(--meta-border);
+
+      .card__meta-text {
+        padding-inline-end: var(--inline-space);
+      }
+    }
+  }
+
+  .card__meta-grid--assigned {
+    grid-template-areas:
+      "top avatar"
+      "bottom avatar";
+    grid-template-columns: 1fr auto;
+
+    .card__meta-assignees { grid-area: avatar; }
+    .card__meta-text--updated { grid-area: top; }
+    .card__meta-text--assigned { grid-area: bottom; }
+
+    .card__meta-assignees {
+      display: flex;
+      flex-shrink: 0;
+    }
+
+    @media (min-width: 640px) {
+      .card__meta-text {
+        padding-inline-start: var(--inline-space);
+      }
+    }
+  }
+
+  .card__meta-text--added,
+  .card__meta-text--updated {
+    border-block-end: var(--meta-border);
+  }
+
+  .card__meta-author {
+    griad-area: avatar;
+  }
+
+
+
+
+
+
+
+
+
+
 
   .card__timestamp {
     opacity: 0.66;

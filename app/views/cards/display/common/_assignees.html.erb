@@ -1,4 +1,4 @@
-<div class="flex" id="<%= dom_id(card, :assignees) %>">
+<div class="display-contents" id="<%= dom_id(card, :assignees) %>">
   <% card.assignees.each do |assignee| %>
     <%= avatar_tag assignee %>
   <% end %>
