@@ -142,7 +142,7 @@
     color: inherit;
     font-size: var(--text-xx-large);
     font-weight: 900;
-    line-height: 1.2;
+    line-height: 1.3;
     text-wrap: balance;
 
     @supports not (field-sizing: content) {

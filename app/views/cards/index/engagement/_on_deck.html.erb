@@ -4,7 +4,7 @@
     data-related-element-target="related"
     data-related-element-group-value="card-columns"
     data-action="mouseover->related-element#highlight mouseout->related-element#unhighlight">
-  <h2 class="cards__heading">On Deck</h2>
+  <h2 class="cards__heading"><span class="cards__filter btn non-clickable borderless">On Deck</span></h2>
 
   <% if page.used? %>
     <%= render partial: "cards/display/preview", collection: page.records, as: :card, locals: { draggable: true }, cached: true %>
