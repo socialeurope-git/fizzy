@@ -80,6 +80,7 @@
     }
 
     .card__title {
+      line-height: 1.2;
       pointer-events: none;
     }
 
