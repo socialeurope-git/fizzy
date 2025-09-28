@@ -12,7 +12,5 @@ class Account < ApplicationRecord
 
     Closure::Reason.create_defaults
     Collection.create!(name: "Cards", creator: user, all_access: true)
-    workflow = Workflow.create!(name: "Basic")
-    Collection.first.update!(workflow: workflow)
   end
 end

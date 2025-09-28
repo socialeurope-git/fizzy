@@ -16,7 +16,7 @@ class CollectionsControllerTest < ActionDispatch::IntegrationTest
     end
 
     collection = Collection.last
-    assert_redirected_to cards_path(collection_ids: [ collection ])
+    assert_redirected_to collection_path(collection)
     assert_includes collection.users, users(:kevin)
     assert_equal "Remodel Punch List", collection.name
   end
