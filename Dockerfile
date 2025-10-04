@@ -19,7 +19,7 @@ FROM base AS build
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \
-    apt-get install -y --no-install-recommends -y build-essential git libvips pkg-config libyaml-dev default-libmysqlclient-dev && \
+    apt-get install -y --no-install-recommends -y build-essential pkg-config git libvips libyaml-dev && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Install application gems
@@ -54,7 +54,7 @@ FROM base
 
 # Install packages needed for deployment
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libsqlite3-0 libvips build-essential ffmpeg groff libreoffice-writer libreoffice-impress libreoffice-calc mupdf-tools default-libmysqlclient-dev && \
+    apt-get install --no-install-recommends -y curl libsqlite3-0 libvips build-essential ffmpeg groff libreoffice-writer libreoffice-impress libreoffice-calc mupdf-tools && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Copy built artifacts: gems, application
