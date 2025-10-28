@@ -19,6 +19,14 @@
     }
   }
 
+  .filters__list {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--inline-space-half);
+    justify-content: center;
+  }
+
   .filter {
     &[aria-selected] {
       display: flex;
@@ -133,10 +141,17 @@
   }
 
   .quick-filter {
+    position: relative;
+
     &:has([aria-checked="true"]):not(.quick-filter--with-default) {
       .input--select {
         --input-background: var(--color-selected);
       }
+    }
+
+    /* Hide a quick filter if there's nothing in it to filter by */
+    &:not(:has(.popup__item)) {
+      display: none !important;
     }
 
     @media (max-width: 80ch) {
