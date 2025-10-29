@@ -33,7 +33,7 @@ module Column::Positioned
 
   private
     def set_position
-      max_position = collection.columns.maximum(:position)
+      max_position = collection.columns.maximum(:position) || 0
       self.position = max_position + 1
     end
 
