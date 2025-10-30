@@ -1,7 +1,7 @@
 class Entropy::Configuration < ApplicationRecord
   belongs_to :container, polymorphic: true
 
-  after_commit :touch_all_container_cards_later
+  after_commit :touch_all_cards_later
 
   class << self
     def default
@@ -10,7 +10,7 @@ class Entropy::Configuration < ApplicationRecord
   end
 
   private
-    def touch_all_container_cards_later
+    def touch_all_cards_later
       Card::TouchAllJob.perform_later(container)
     end
 end
