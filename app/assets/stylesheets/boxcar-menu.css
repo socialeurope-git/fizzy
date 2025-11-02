@@ -6,12 +6,12 @@
 
     img {
       block-size: auto;
-      inline-size: 1.15em; 
-      margin-inline-end: 0.8ch; 
+      inline-size: 1.15em;
+      margin-inline-end: 0.8ch;
     }
   }
 
-  .input:is(.fizzy-menu-trigger) {
+  .input:is(.boxcar-menu-trigger) {
     --input-background: var(--color-canvas);
     --input-border-color: transparent;
     --input-padding: 0.3em 2em 0.3em 0.75em;
@@ -58,7 +58,7 @@
     }
   }
 
-  .fizzy-menu:is(.panel) {
+  .boxcar-menu:is(.panel) {
     --panel-border-color: var(--color-selected-dark);
     --panel-border-radius: 1.4em;
     --panel-size: 45ch;
@@ -71,15 +71,24 @@
     flex-direction: column;
     gap: 2px;
     scrollbar-gutter: stable both-edges;
+
+    /* Safari doesn't position the sticky footer properly during the
+     * transition, so we need to delay the footer entrance. */
+    .popup__footer {
+      animation: safari-sticky-footer-hack 0s;
+      animation-delay: var(--dialog-duration);
+      animation-fill-mode: both;
+      inset-inline: var(--block-space);
+    }
   }
 
-  .fizzy-menu__close {
+  .boxcar-menu__close {
     @media (any-hover: hover) {
       display: none;
     }
   }
 
-  .fizzy-menu__hotkeys {
+  .boxcar-menu__hotkeys {
     --gap: 8px;
 
     align-items: center;

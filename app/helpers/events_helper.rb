@@ -107,7 +107,7 @@ module EventsHelper
     end
 
     def event_card_title(card)
-      tag.span card.title, style: "color: var(--card-color)"
+      tag.span card.title, class: "txt-underline"
     end
 
     def event_due_date(event)

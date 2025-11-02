@@ -6,7 +6,9 @@
 <% end %>
 
 <% content_for :header do %>
-  <%= link_back_to_collection(@card.collection) %>
+  <div class="header__actions header__actions--start">
+    <%= link_back_to_collection(@card.collection) %>
+  </div>
 <% end %>
 
 <%= turbo_stream_from @card %>

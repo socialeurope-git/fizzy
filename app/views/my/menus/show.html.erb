@@ -15,7 +15,7 @@
             nav_section_expander_target: "input",
             navigable_list_target: "input",
             action: "input->filter#filter" } %>
-    <button class="fizzy-menu__close btn borderless txt-small" data-action="dialog#close">
+    <button class="boxcar-menu__close btn borderless txt-small" data-action="dialog#close">
       <%= icon_tag "close" %>
       <span class="for-screen-reader">Close menu</span>
     </button>
@@ -23,8 +23,8 @@
 
   <%= render "hotkeys" %>
 
-  <div class="margin-block-start-half txt-x-small txt-align-center txt-subtle">
-    BOXCAR is designed, built, and backed by <strong class="txt-nowrap"><%= icon_tag "37signals" %> <a href="https://37signals.com" target="_blank" class="txt-subtle">37signals</a>.</strong>
+  <div class="margin-block-start-half txt-x-small txt-align-center">
+    BOXCAR is designed, built, and backed by <strong class="txt-nowrap"><%= icon_tag "37signals", class: "v-align-middle" %> <a href="https://37signals.com" target="_blank" class="txt-ink">37signals</a>.</strong>
   </div>
 
   <%= render "saved_filter", filters: @user_filtering.filters %>

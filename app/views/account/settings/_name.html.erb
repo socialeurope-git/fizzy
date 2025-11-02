@@ -1,8 +1,10 @@
-<h2 class="divider txt-large">Account</h2>
 <%= form_with model: account, url: account_settings_path, method: :put, scope: :account, data: { controller: "form" }, class: "flex gap-half" do |form| %>
-  <%= form.text_field :name, required: true, class: "input input--transparent full-width", placeholder: "Account name",data: { action: "input->form#disableSubmitWhenInvalid" } %>
-  <%= form.button class: "btn btn--circle btn--link", data: { form_target: "submit" }, disabled: form.object do %>
-    <%= icon_tag "arrow-right" %>
-    <span class="for-screen-reader">Save changes</span>
+  <strong class="full-width"><%= form.text_field :name, required: true, class: "input input--transparent full-width txt-medium", placeholder: "Account name…", data: { action: "input->form#disableSubmitWhenInvalid" }, readonly: !Current.user.can_administer? %></strong>
+
+  <% if Current.user.can_administer? %>
+    <%= form.button class: "btn btn--circle btn--link txt-medium", data: { form_target: "submit" }, disabled: form.object do %>
+      <%= icon_tag "arrow-right" %>
+      <span class="for-screen-reader">Save changes</span>
+    <% end %>
   <% end %>
 <% end %>
