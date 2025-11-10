@@ -237,7 +237,7 @@
     .cards:not(.is-collapsed) & {
       display: grid;
       grid-template-areas: "menu expander maximize";
-      grid-template-columns: auto 1fr auto;
+      grid-template-columns: var(--column-width-collapsed) 1fr var(--column-width-collapsed);
       margin-block-end: calc(0.5 * var(--cards-gap));
     }
   }
