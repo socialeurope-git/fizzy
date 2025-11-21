@@ -17,17 +17,8 @@ module SQLiteFTS5SchemaDumperFix
   end
 end
 
-if ENV.fetch("DATABASE_ADAPTER", "mysql") == "sqlite"
-  ActiveSupport.on_load(:active_record) do
-    # Ensure schema dumper is loaded
-    begin
-      require 'active_record/connection_adapters/sqlite3/schema_dumper'
-    rescue LoadError
-      # SQLite3 adapter not available
-    end
-
-    if defined?(ActiveRecord::ConnectionAdapters::SQLite3::SchemaDumper)
-      ActiveRecord::ConnectionAdapters::SQLite3::SchemaDumper.prepend(SQLiteFTS5SchemaDumperFix)
-    end
+ActiveSupport.on_load(:active_record) do
+  if defined?(ActiveRecord::ConnectionAdapters::SQLite3::SchemaDumper)
+    ActiveRecord::ConnectionAdapters::SQLite3::SchemaDumper.prepend(SQLiteFTS5SchemaDumperFix)
   end
 end
