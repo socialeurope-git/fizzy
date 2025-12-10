@@ -63,8 +63,8 @@ Rails.application.configure do
 
   # Log to STDOUT by default
   config.logger = ActiveSupport::Logger.new(STDOUT)
-                                       .tap  { |logger| logger.formatter = ::Logger::Formatter.new }
-                                       .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
+                                     .tap  { |logger| logger.formatter = ::Logger::Formatter.new }
+                                     .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
 
   # Suppress unstructured log lines
   config.log_level = :fatal
@@ -79,6 +79,9 @@ Rails.application.configure do
   config.active_job.queue_adapter = :solid_queue
   config.solid_queue.connects_to = { database: { writing: :queue, reading: :queue } }
   # config.active_job.queue_name_prefix = "fizzy_production"
+
+  # Store uploaded files on the local file system (see config/storage.yml for options).
+  config.active_storage.service = :local
 
   config.action_mailer.perform_caching = false
 
