@@ -4,7 +4,9 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Email provider Settings
+  #
   # SMTP setting can be configured via environment variables.
+  # For other configuration options, consult the Action Mailer documentation.
   if smtp_address = ENV["SMTP_ADDRESS"].presence
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
@@ -21,14 +23,18 @@ Rails.application.configure do
   # Code is not reloaded between requests.
   config.enable_reloading = false
 
-  # Eager load code on boot.
+  # Eager load code on boot. This eager loads most of Rails and
+  # your application in memory, allowing both threaded web servers
+  # and those relying on copy on write to perform better.
+  # Rake tasks automatically ignore this option for performance.
   config.eager_load = true
 
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
 
-  # Ensures that a master key has been made available
+  # Ensures that a master key has been made available in ENV["RAILS_MASTER_KEY"], config/master.key, or an environment
+  # key such as config/credentials/production.key. This key is used to decrypt credentials (and other encrypted files).
   # config.require_master_key = true
 
   config.public_file_server.enabled = true
@@ -49,6 +55,7 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = [ "http://example.com", /http:\/\/example.*/ ]
 
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.
+  # Can be used together with config.force_ssl for Strict-Transport-Security and secure cookies.
   config.assume_ssl = ENV.fetch("ASSUME_SSL", "true") == "true"
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
@@ -76,9 +83,11 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
 
   # Ignore bad email addresses and do not raise email delivery errors.
+  # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
 
-  # Enable locale fallbacks for I18n
+  # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
+  # the I18n.default_locale when a translation cannot be found).
   config.i18n.fallbacks = true
 
   # Don't log any deprecations.
@@ -88,17 +97,22 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Skip DNS rebinding protection for the default health check endpoint.
-  config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
-
+  # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+  
   # =========================================================
-  # ⬇️ THE FIXES (Added at the end to be safe) ⬇️
+  # ⬇️ THE FIXES (Inserted carefully at the end) ⬇️
   # =========================================================
 
-  # 1. Fix Storage: Use local disk (Persistent Volume)
+  # 1. Fix Storage: Use local disk
   config.active_storage.service = :local
 
-  # 2. Fix Notifications: Tell the worker your real domain name
+  # 2. Enable Health Check (Coolify needs this to show "Healthy")
+  config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+
+  # 3. Fix Notification Thumbnails: Explicitly set the domain
   config.action_mailer.default_url_options = { host: "fizzy.social-europe.eu", protocol: "https" }
-  config.application.routes.default_url_options = { host: "fizzy.social-europe.eu", protocol: "https" }
+  
+  # IMPORTANT: We use Rails.application here to avoid the crash
+  Rails.application.routes.default_url_options = { host: "fizzy.social-europe.eu", protocol: "https" }
 
 end
