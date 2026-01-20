@@ -79,4 +79,4 @@ ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
 # Start server via Thruster by default, this can be overwritten at runtime
 EXPOSE 80
-CMD ["/bin/bash", "-c", "bundle exec rake solid_queue:start & ./bin/thrust ./bin/rails server"]
+CMD ["/bin/bash", "-c", "echo 'production: { dispatchers: [{polling_interval: 1, batch_size: 500}], workers: [{queues: \"*\", threads: 3, processes: 1}] }' > config/solid_queue.yml && bundle exec rake solid_queue:start & ./bin/thrust ./bin/rails server"]
